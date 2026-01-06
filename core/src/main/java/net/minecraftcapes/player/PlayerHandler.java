@@ -4,12 +4,17 @@ import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
 import lombok.Getter;
 import lombok.Setter;
+import net.labymod.api.LabyAPI;
+import net.labymod.api.client.Minecraft;
 import net.labymod.api.client.entity.player.Player;
+import net.labymod.api.client.network.PlayerSkin;
 import net.labymod.api.client.resources.ResourceLocation;
+import net.labymod.api.client.resources.texture.DynamicTexture;
 import net.labymod.api.client.resources.texture.GameImage;
 import net.labymod.api.client.resources.texture.SimpleTexture;
 import net.minecraftcapes.MinecraftCapes;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.UUID;
 
@@ -250,11 +255,9 @@ public class PlayerHandler {
      * @param resourceLocation
      * @param bufferedImage
      */
-    private void applyTexture(final ResourceLocation resourceLocation,
-                              final GameImage bufferedImage) {
-        MinecraftCapes.getLabyAPI().minecraft().executeOnRenderThread(() -> {
-            bufferedImage.uploadTextureAt(resourceLocation);
-        });
+    private void applyTexture(final ResourceLocation resourceLocation, final GameImage bufferedImage) {
+        MinecraftCapes.getLabyAPI().minecraft().executeOnRenderThread(() -> bufferedImage.uploadTextureAt(resourceLocation));
+
     }
 
     /**

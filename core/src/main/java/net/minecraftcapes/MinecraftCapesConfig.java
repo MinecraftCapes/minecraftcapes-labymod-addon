@@ -6,14 +6,24 @@ import net.labymod.api.client.gui.screen.widget.widgets.input.ButtonWidget;
 import net.labymod.api.client.gui.screen.widget.widgets.input.SwitchWidget.SwitchSetting;
 import net.labymod.api.configuration.loader.annotation.ConfigName;
 import net.labymod.api.configuration.loader.property.ConfigProperty;
+import net.labymod.api.models.OperatingSystem;
 import net.labymod.api.util.MethodOrder;
 import net.minecraftcapes.player.DownloadManager;
+
+import java.net.URI;
 
 @ConfigName("settings")
 public class MinecraftCapesConfig extends AddonConfig {
 
     @SwitchSetting
     private final ConfigProperty<Boolean> enabled = new ConfigProperty<>(true);
+
+    @MethodOrder(after = "enabled")
+    @ButtonWidget.ButtonSetting
+    public void openWebsite() {
+        URI uri = URI.create("https://minecraftcapes.net");
+        OperatingSystem.getPlatform().openUri(uri);
+    }
 
     @SwitchSetting
     private final ConfigProperty<Boolean> capeVisible = new ConfigProperty<>(true);
@@ -39,11 +49,11 @@ public class MinecraftCapesConfig extends AddonConfig {
         return this.enabled;
     }
 
-    public ConfigProperty<Boolean> isCapeVisible() {
-        return this.capeVisible;
+    public boolean isCapeVisible() {
+        return this.enabled.get() && this.capeVisible.get();
     }
 
-    public ConfigProperty<Boolean> isEarsVisible() {
-        return this.earsVisible;
+    public boolean isEarsVisible() {
+        return this.enabled.get() && this.earsVisible.get();
     }
 }

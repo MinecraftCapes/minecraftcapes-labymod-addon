@@ -27,7 +27,7 @@ public class MixinDeadmau5EarsLayer {
         }
 
         PlayerHandler playerHandler = PlayerHandler.get(entitylivingbaseIn.getUniqueID());
-        if (playerHandler.getEarLocation() != null && !entitylivingbaseIn.isInvisible() && MinecraftCapes.getConfig().isEarsVisible().get()) {
+        if (playerHandler.getEarLocation() != null && !entitylivingbaseIn.isInvisible() && MinecraftCapes.getConfig().isEarsVisible()) {
             this.playerRenderer.bindTexture((ResourceLocation) playerHandler.getEarLocation());
 
             GlStateManager.pushMatrix();

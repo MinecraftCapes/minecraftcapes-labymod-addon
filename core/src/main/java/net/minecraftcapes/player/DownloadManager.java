@@ -45,6 +45,18 @@ public class DownloadManager {
     }
 
     /**
+     * Prepares the download
+     * @param playerHandler The player handler instance
+     */
+    public static void prepareDownload(PlayerHandler playerHandler) {
+        if(!playerHandler.getHasInfo()) {
+            playerHandler.setHasInfo(true);
+            downloadProfile(playerHandler);
+        }
+    }
+
+
+    /**
      * Downloads a profile for a specific PlayerHandler.
      *
      * @param playerHandler

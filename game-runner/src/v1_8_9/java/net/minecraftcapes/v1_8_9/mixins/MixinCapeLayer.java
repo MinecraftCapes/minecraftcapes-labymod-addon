@@ -32,7 +32,7 @@ public class MixinCapeLayer {
         PlayerHandler playerHandler = PlayerHandler.get(entitylivingbaseIn.getUniqueID());
 
         // Redirect to custom buffer if player has cape glint, otherwise use the default buffer
-        if (MinecraftCapes.getConfig().isCapeVisible().get() && playerHandler.getHasCapeGlint()) {
+        if (MinecraftCapes.getConfig().isCapeVisible() && playerHandler.getHasCapeGlint()) {
             minecraftcapes$renderEchantmentGlint(entitylivingbaseIn, partialTicks);
         }
     }

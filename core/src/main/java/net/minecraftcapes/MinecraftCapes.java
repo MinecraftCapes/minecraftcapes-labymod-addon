@@ -4,7 +4,6 @@ import lombok.Getter;
 import net.labymod.api.Constants;
 import net.labymod.api.LabyAPI;
 import net.labymod.api.addon.LabyAddon;
-import net.labymod.api.configuration.loader.Config;
 import net.labymod.api.models.addon.annotation.AddonMain;
 import net.labymod.api.util.logging.Logging;
 import net.minecraftcapes.listeners.PlayerListener;

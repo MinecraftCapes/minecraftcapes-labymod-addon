@@ -1,0 +1,46 @@
+package net.minecraftcapes.v1_21_11.mixins;
+
+import com.mojang.blaze3d.platform.NativeImage;
+import net.labymod.api.client.resources.ResourceLocation;
+import net.labymod.api.util.CastUtil;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.entity.ClientAvatarEntity;
+import net.minecraft.client.model.player.PlayerModel;
+import net.minecraft.client.renderer.entity.EntityRendererProvider;
+import net.minecraft.client.renderer.entity.LivingEntityRenderer;
+import net.minecraft.client.renderer.entity.player.AvatarRenderer;
+import net.minecraft.client.renderer.entity.state.AvatarRenderState;
+import net.minecraft.client.renderer.texture.AbstractTexture;
+import net.minecraft.client.renderer.texture.Dumpable;
+import net.minecraft.client.renderer.texture.DynamicTexture;
+import net.minecraft.resources.Identifier;
+import net.minecraft.world.entity.Avatar;
+import net.minecraftcapes.MinecraftCapes;
+import net.minecraftcapes.player.PlayerHandler;
+import net.minecraftcapes.v1_21_11.ExtendedRenderState;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+
+@Mixin(AvatarRenderer.class)
+public abstract class MixinAvatarRenderer<AvatarlikeEntity extends Avatar & ClientAvatarEntity> extends LivingEntityRenderer<AvatarlikeEntity, AvatarRenderState, PlayerModel> {
+
+    public MixinAvatarRenderer(EntityRendererProvider.Context p_174289_, PlayerModel p_174290_, float p_174291_) {
+        super(p_174289_, p_174290_, p_174291_);
+    }
+
+    @Inject(method = "extractRenderState(Lnet/minecraft/world/entity/Avatar;Lnet/minecraft/client/renderer/entity/state/AvatarRenderState;F)V", at = @At(value = "TAIL"))
+    public void extractRenderState(AvatarlikeEntity avatarlikeEntity, AvatarRenderState avatarRenderState, float p_445702_, CallbackInfo ci) {
+        ExtendedRenderState extendedRenderState = (ExtendedRenderState) avatarRenderState;
+        PlayerHandler playerHandler = PlayerHandler.get(avatarlikeEntity.getUUID());
+
+        if(playerHandler.getHasInfo()) {
+            avatarRenderState.isUpsideDown = playerHandler.isUpsideDown();
+            avatarRenderState.showExtraEars = MinecraftCapes.getConfig().isEarsVisible() && playerHandler.getEarLocation() != null;
+            extendedRenderState.minecraftcapes$setCapeEnabled(MinecraftCapes.getConfig().isCapeVisible());
+            extendedRenderState.minecraftcapes$setGapeGlint(playerHandler.getHasCapeGlint());
+            extendedRenderState.minecraftcapes$setEarsTexture(CastUtil.cast(playerHandler.getEarLocation()));
+        }
+    }
+}

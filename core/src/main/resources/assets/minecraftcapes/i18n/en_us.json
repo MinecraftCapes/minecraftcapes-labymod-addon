@@ -4,6 +4,10 @@
       "enabled": {
         "name": "Enabled"
       },
+      "openWebsite": {
+        "name": "Open Website",
+        "text": "Open"
+      },
       "capeVisible": {
         "name": "Capes"
       },
