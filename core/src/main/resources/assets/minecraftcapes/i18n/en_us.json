@@ -1,0 +1,19 @@
+{
+  "minecraftcapes": {
+    "settings": {
+      "enabled": {
+        "name": "Enabled"
+      },
+      "capeVisible": {
+        "name": "Capes"
+      },
+      "earsVisible": {
+        "name": "Ears"
+      },
+      "forceRefresh": {
+        "name": "Force Refresh",
+        "text": "Refresh"
+      }
+    }
+  }
+}
