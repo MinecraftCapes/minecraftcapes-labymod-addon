@@ -1,4 +1,4 @@
-rootProject.name = "minecraftcapes-labymod-adon"
+rootProject.name = "minecraftcapes"
 
 pluginManagement {
     val labyGradlePluginVersion = "0.5.9"
